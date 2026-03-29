@@ -17,13 +17,7 @@ export default function FormularioPage() {
     event.preventDefault();
 
     if (!username.trim() || !fullName.trim() || !age.trim()) {
-      setError("Todos los campos son obligatorios.");
-      setSubmittedData(null);
-      return;
-    }
-
-    if (Number(age) < 1 || Number(age) > 100) {
-      setError("La edad debe estar entre 1 y 100.");
+      setError("Llenar todos los campos.");
       setSubmittedData(null);
       return;
     }
@@ -37,7 +31,7 @@ export default function FormularioPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white px-4 py-14 text-black">
+    <main className="min-h-screen px-4 py-14 text-black">
       <section className="mx-auto mt-6 max-w-5xl rounded-[28px] border-2 border-gray-500 bg-white p-10">
         <div className="grid gap-10 md:grid-cols-[1.15fr_0.85fr]">
           <form onSubmit={handleSubmit} className="space-y-10">
