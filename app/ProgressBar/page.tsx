@@ -5,10 +5,29 @@ import React, { useState } from 'react';
 
 export default function ProgressBar() {
   const [progress, setProgress] = useState(0);
+  const [inputValue, setInputValue] = useState('0');
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10);
-    if (!isNaN(value) && value > 0 && value <= 100) {
-      setProgress(value);
+    const { value } = e.target;
+
+    if (value === '') {
+      setInputValue('');
+      setProgress(0);
+      return;
+    }
+
+    const parsedValue = parseInt(value, 10);
+
+    if (parsedValue >= 0 && parsedValue <= 100) {
+      setInputValue(value);
+      setProgress(parsedValue);
+    }
+  };
+
+  const handleInputBlur = () => {
+    if (inputValue === '') {
+      setInputValue('0');
+      setProgress(0);
     }
   };
 
@@ -28,8 +47,9 @@ export default function ProgressBar() {
         type="text"
         min="0"
         max="100"
-        value={progress}
+        value={inputValue}
         onChange={handleInputChange}
+        onBlur={handleInputBlur}
         className="w-full max-w-md p-2 border border-gray-300 rounded"
       />
     </div>
